@@ -21,7 +21,7 @@
   <meta property="og:title" content="Joost's Personal Page" />
   <meta property="og:image" content="images/joost.jpg" />
 
-  <link rel="icon" type="image/jpeg" href="images/joost.jpg" />
+  <link rel="icon" type="image/jpeg" href="images/joost_small.jpg" />
   <link rel="apple-touch-icon" href="images/joost.jpg" />
 
   <meta property="twitter:card" content="summary_large_image" />
@@ -201,8 +201,7 @@
       var copyTest = document.queryCommandSupported('copy');
       var elOriginalText = el.attr('data-original-title');
 
-      if (copyTest === true)
-      {
+      if (copyTest === true) {
         var copyTextArea = document.createElement("textarea");
         copyTextArea.setAttribute('readonly', true);
         copyTextArea.setAttribute('contenteditable', true);
@@ -221,21 +220,18 @@
         selection.addRange(range);
         copyTextArea.setSelectionRange(0, copyTextArea.value.length);
 
-        try
-        {
+        try {
           var successful = document.execCommand('copy');
           var msg = successful ? 'Copied!' : 'Something went wrong, not copied!';
           el.attr('data-original-title', msg).tooltip('show');
-        } catch (err)
-        {
+        } catch (err) {
           console.log('Unable to copy');
         }
 
         document.body.removeChild(copyTextArea);
         el.attr('data-original-title', elOriginalText);
 
-      } else
-      {
+      } else {
         // Fallback if browser doesn't support .execCommand('copy')
         window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
       }
