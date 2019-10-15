@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134838958-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134838958-1');
+  </script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="description" content="Personal page of Joost van Amersfoort">
+  <meta name="author" content="Joost van Amersfoort">
+
+  <meta property="og:title" content="Joost's Personal Page" />
+  <meta property="og:image" content="images/joost.jpg" />
+
+  <link rel="icon" type="image/jpeg" href="images/joost.jpg" />
+  <link rel="apple-touch-icon" href="images/joost.jpg" />
+
+  <meta property="twitter:card" content="summary_large_image" />
+
+  <!-- Bootstrap/Font Awesome CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <title>Joost van Amersfoort</title>
+
+  <style>
+    a[aria-expanded=true] .fa-chevron-down {
+      display: none;
+    }
+
+    a[aria-expanded=false] .fa-chevron-up {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light navbar-expand-sm">
+    <div class="container">
+      <span class="navbar-brand mb-0 h1">Joost</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="#home">Home</a>
+          <a class="nav-item nav-link active" href="#publications">Publications</a>
+          <a class="nav-item nav-link active" href="#projects">Projects</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center flex-sm-row-reverse">
+      <div class="col-8 col-sm-5 col-md-4">
+        <img class="ml-3 img-thumbnail rounded-circle" src="images/joost.jpg" alt="Joost van Amersfoort">
+      </div>
+      <div class="col-12 col-sm-7 col-md-8">
+        <h2 id="home">Hi Everyone</h2>
+        <p class="lead">
+          I am Joost (pronounce ‘Yoast’) van Amersfoort (which is a
+          Dutch <a href="https://en.wikipedia.org/wiki/Amersfoort">city</a>)
+          and I am currently pursuing a PhD at the Unversity of Oxford under supervision of Professor Yarin Gal (in <a
+            href="http://oatml.cs.ox.ac.uk/">OATML</a>)
+          and Professor Yee Whye Teh (in <a href="http://csml.stats.ox.ac.uk/">OxCSML</a>).
+        </p>
+
+        <p>
+          I am interested in variational inference (for example done through the reparametrisation trick, dropout and
+          reversible models) and
+          its applications such as uncertainty estimation, active learning and generative modelling.
+        </p>
+
+        <p>
+          Previously, I was a research engineer at Twitter Cortex, where I worked on large scale video models and
+          recommendation systems.
+          I did my masters at the University of Amsterdam, where I worked with Dr. Durk Kingma and Professor Max
+          Welling. I've also done an
+          internship at Facebook AI Research (FAIR).
+        </p>
+
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a data-toggle="collapse" href="#email" title="Click to expand" role="button" aria-expanded="false">
+              <i class="fas fa-envelope"></i> Email <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
+            </a>
+          </li>
+          <li class="list-inline-item"><a href="https://twitter.com/joost_v_amersf"><i class="fab fa-twitter"></i>
+              Twitter</a></li>
+          <li class="list-inline-item"><a href="https://scholar.google.com/citations?user=C0LaV8IAAAAJ"><i
+                class="fas fa-graduation-cap"></i> Google Scholar</a></li>
+          <li class="list-inline-item"><a href="https://github.com/y0ast"><i class="fab fa-github"></i> GitHub</a></li>
+        </ul>
+        <div class="collapse" id="email">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">joost.van.amersfoort@cs.ox.ac.uk</span>
+            </div>
+            <button type="button" class="btn btn-secondary js-copy" data-toggle="tooltip" data-placement="bottom"
+              data-copy="joost.van.amersfoort@cs.ox.ac.uk" title="Copy to clipboard"><i
+                class="far fa-copy"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col">
+        <h2 id="publications">Publications</h2>
+        <p>Recent publications/preprints, for a full overview see my <a
+            href="https://scholar.google.com/citations?user=C0LaV8IAAAAJ">Google Scholar page</a>.</p>
+        <ul>
+          <li>
+            <b><a href="https://arxiv.org/abs/1906.08158">BatchBALD: Efficient and Diverse Batch Acquisition for Deep
+                Bayesian Active Learning</a></b><br>
+            <a href="https://www.blackhc.net/">Andreas Kirsch*</a>, Joost van
+            Amersfoort*, <a href="http://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin
+              Gal</a><br>
+            <b>NeurIPS 2019</b>,
+            <a href="https://oatml.cs.ox.ac.uk/blog/2019/06/24/batchbald.html">Blog</a>,
+            <a href="https://github.com/BlackHC/BatchBALD">Code</a>,
+            <a data-toggle="collapse" href="#bibtex_batchbald" title="Click to
+            expand" role="button" aria-expanded="false">
+              BibTex <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
+            </a>
+            <div class="collapse" id="bibtex_batchbald">
+              <div class="card card-body mb-0">
+                <pre style="margin-bottom: 0;">
+  @article{kirsch2019batchbald,
+    title={BatchBALD: Efficient and Diverse Batch Acquisition for Deep Bayesian Active Learning},
+    author={Kirsch, Andreas and van Amersfoort, Joost and Gal, Yarin},
+    booktitle={Advances in Neural Information Processing Systems},
+    year={2019}
+  }</pre>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <h4>Reviewer</h4>
+        <ul>
+          <li><a href="https://neurips.cc/">NeurIPS</a> - 2017 :: 2018 :: 2019</li>
+          <li><a href="https://icml.cc/">ICML</a> - 2018</li>
+          <li><a href="https://iclr.cc/">ICLR</a> - 2019</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col">
+        <h2 id="projects">Open Source - projects and reproductions</h2>
+        <p>For a full overview of all my open source work, see my <a href="https://github.com/y0ast">Github account</a>.
+        </p>
+        <ul>
+          <li>
+            <b><a href="https://gist.github.com/y0ast/f69966e308e549f013a92dc66debeeb4">FastMNIST</a></b>:
+            The default PyTorch MNIST dataset implementation is slow when used on a modern GPU. This replacement
+            speeds up training by 2-3x.
+          </li>
+          <li>
+            <b><a href="https://github.com/y0ast/Glow-PyTorch">Glow in PyTorch</a></b>:
+            The code reproduces results from <a href="https://arxiv.org/abs/1810.09136">"Do Deep Generative Models Know
+              What They Don't Know?"</a>
+            and includes a pretrained model, evaluation notebooks and training code.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (includes jQuery and Popper)-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script>
+    // COPY TO CLIPBOARD
+    // Attempts to use .execCommand('copy') on a created text field
+    // Falls back to a selectable alert if not supported
+    // ------------------------------------------------------------------------------
+
+    function copyToClipboard(text, el) {
+      var copyTest = document.queryCommandSupported('copy');
+      var elOriginalText = el.attr('data-original-title');
+
+      if (copyTest === true)
+      {
+        var copyTextArea = document.createElement("textarea");
+        copyTextArea.setAttribute('readonly', true);
+        copyTextArea.setAttribute('contenteditable', true);
+        copyTextArea.style.position = 'fixed'; // prevent scroll from jumping to the bottom when focus is set.
+        copyTextArea.value = text;
+
+        document.body.appendChild(copyTextArea);
+
+        copyTextArea.select();
+
+        // Below hack is necessary for iOS
+        range = document.createRange();
+        range.selectNodeContents(copyTextArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        copyTextArea.setSelectionRange(0, copyTextArea.value.length);
+
+        try
+        {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'Copied!' : 'Something went wrong, not copied!';
+          el.attr('data-original-title', msg).tooltip('show');
+        } catch (err)
+        {
+          console.log('Unable to copy');
+        }
+
+        document.body.removeChild(copyTextArea);
+        el.attr('data-original-title', elOriginalText);
+
+      } else
+      {
+        // Fallback if browser doesn't support .execCommand('copy')
+        window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+      }
+    }
+
+    $(document).ready(function () {
+      // Tooltip
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+
+      // Copy to clipboard
+      // Grab any text in the attribute 'data-copy' and pass it to the
+      // copy function
+      $('.js-copy').click(function () {
+        var text = $(this).attr('data-copy');
+        var el = $(this);
+        copyToClipboard(text, el);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
