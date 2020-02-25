@@ -48,6 +48,7 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="#home">Home</a>
           <a class="nav-item nav-link active" href="#publications">Publications</a>
+          <a class="nav-item nav-link active" href="#blogs">Blogs</a>
           <a class="nav-item nav-link active" href="#projects">Projects</a>
         </div>
       </div>
@@ -101,7 +102,8 @@
               <span class="input-group-text">joost.van.amersfoort@cs.ox.ac.uk</span>
             </div>
             <button type="button" class="btn btn-secondary js-copy" data-toggle="tooltip" data-placement="bottom"
-              data-copy="joost.van.amersfoort@cs.ox.ac.uk" title="Copy to clipboard"><i class="far fa-copy"></i></button>
+              data-copy="joost.van.amersfoort@cs.ox.ac.uk" title="Copy to clipboard"><i
+                class="far fa-copy"></i></button>
           </div>
         </div>
       </div>
@@ -152,6 +154,20 @@
 
     <div class="row mt-4">
       <div class="col">
+        <h2 id="blogs">Blogs</h2>
+        <ul>
+          <li>
+            <b><a href="blogs/variational_inference_sgp_from_vae.html">Variational
+                Inference in Sparse Gaussian Processes and Variational
+                Auto-Encoder</a></b>
+            The blog explains variational inference in sparse GPs from a VAE perspective.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col">
         <h2 id="projects">Open Source - projects and reproductions</h2>
         <p>For a full overview of all my open source work, see my <a href="https://github.com/y0ast">Github account</a>.
         </p>
@@ -168,8 +184,10 @@
             and includes a pretrained model, evaluation notebooks and training code.
           </li>
           <li>
-            <b><a href="https://gist.github.com/y0ast/d91d09565462125a1eb75acc65da1469">CIFAR-10 baseline script</a></b>:
-            A self-contained, 150 line script that trains a ResNet-18 to ~94% accuracy on CIFAR-10 using PyTorch. Useful for obtaining a strong baseline with minimal tricks.
+            <b><a href="https://gist.github.com/y0ast/d91d09565462125a1eb75acc65da1469">CIFAR-10 baseline
+                script</a></b>:
+            A self-contained, 150 line script that trains a ResNet-18 to ~94% accuracy on CIFAR-10 using PyTorch. Useful
+            for obtaining a strong baseline with minimal tricks.
           </li>
         </ul>
       </div>
@@ -213,7 +231,7 @@
         copyToClipboard($(this));
       });
 
-      $('pre').dblclick(function() {
+      $('pre').dblclick(function () {
         var text = this.firstChild;
 
         selection = window.getSelection();
