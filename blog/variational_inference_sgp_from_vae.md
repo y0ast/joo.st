@@ -1,4 +1,4 @@
-# An Introduction to Sparse Gaussian Processes 
+# Variational Inference in Sparse Gaussian Processes and Variational Auto-Encoders
 *A deep learning first explanation by [Joost van Amersfoort](https://joo.st)*
 
 ## Introduction
