@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>Variational Inference in Sparse Gaussian Processes and Variational Auto-Encoders</title>
     <style>
     </style>
@@ -39,32 +38,31 @@
 
 </head>
 
-<body class="vscode-light">
+<body class="vscode-body vscode-light">
     <h1 id="variational-inference-in-sparse-gaussian-processes-and-variational-auto-encoders">Variational Inference in
         Sparse Gaussian Processes and Variational Auto-Encoders</h1>
     <p><em>A deep learning first explanation by <a href="https://joo.st">Joost van Amersfoort</a></em></p>
     <h2 id="introduction">Introduction</h2>
-    <p>Until about seven years ago, Gaussian Processes (GPs) were roughly as popular as
-        deep learning, according to <a
+    <p>Until 2013, Gaussian Processes (GPs) were roughly as popular as deep learning, according to <a
             href="https://trends.google.com/trends/explore?date=all&amp;q=deep%20learning,gaussian%20process">Google
             Trends</a>.
-        Since then deep learning has seen a 30x increase in interest, while interest in
-        GPs remained unchanged (although the UK is 3x more interested relative to the
-        US!). Despite the community not increasing as fast, there's been steady research
-        happening with GPs. In this blog, I'll explain one of the main research advances
-        in GPs from a deep learning first perspective by showing it can be derived
-        similarly to the Variational Auto-Encoder (VAE)!</p>
+        Since then deep learning has seen a 30x increase in interest, while interest in GPs remained unchanged (although
+        the UK is 3x more interested relative to the US!).
+        Despite the community not increasing as fast, there's been steady research happening with GPs.
+        In this blog, I'll explain one of the main research advances in GPs from a deep learning first perspective by
+        deriving it similarly to the Variational Auto-Encoder (VAE)!</p>
     <p>GPs come out-of-the-box with uncertainty, some interpretability, and rigorous
-        mathematical foundations. So it's not surprising that they remain a topic of
-        great interest to research! Compared to deep learning, GPs are more difficult to
-        scale, both in terms of training data set size, and the dimensionality of the
-        data itself. On both fronts the GP community is making progress, but for this
-        blog I'll focus on one of the proposed solutions to scaling to large data set
-        sizes: variational inference in GPs. I'll use notation from the deep learning
-        literature and attempt to rederive a famous result in GPs using steps that
-        resemble deriving the VAE objective. I'll also include as much intuition as
-        possible and by doing this I hope to make the GP literature more accessible for
-        those with only experience in deep learning.</p>
+        mathematical foundations.
+        So it's not surprising that they remain a topic of
+        great interest to research! However compared to deep learning, GPs are more
+        difficult to scale, both in terms of training data set size, and the
+        dimensionality of the data itself. On both fronts the GP community is making
+        progress, but for this blog I'll focus on one of the proposed solutions to
+        scaling to large data set sizes: variational inference in GPs. I'll use notation
+        from the deep learning literature and attempt to rederive a famous result in GPs
+        using steps that resemble deriving the VAE objective. I'll also include as much
+        intuition as possible and by doing this I hope to make the GP literature more
+        accessible for those with only experience in deep learning.</p>
     <p>For the purpose of this blog, I assume that you have some familiarity with the
         <a href="https://arxiv.org/abs/1312.6114">Variational Auto-Encoder</a> and variational
         inference in general. A good reference to get up to speed with both those
@@ -74,7 +72,8 @@
         Familiarity with GPs is not necessary, but if you would like a gentle
         explanation with many beautiful visualisations then the <a
             href="https://distill.pub/2019/visual-exploration-gaussian-processes/">Distill article on
-            GPs</a> is great.</p>
+            GPs</a> is great.
+    </p>
     <h2 id="variational-auto-encoders">Variational Auto encoders</h2>
     <p>Let's start by recalling the assumptions that underlie the VAE. Our first
         assumption is that there is a random variable <span class="katex"><span class="katex-mathml"><math
@@ -247,8 +246,24 @@
                         style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span
                         class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">∣</span><span
                         class="mord mathdefault" style="margin-right:0.04398em;">z</span><span
-                        class="mclose">)</span></span></span></span>. Unfortunately, computing the true value of $p(z|x)
-        is
+                        class="mclose">)</span></span></span></span>. Unfortunately, computing the true value of <span
+            class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>p</mi>
+                            <mo stretchy="false">(</mo>
+                            <mi>z</mi>
+                            <mi mathvariant="normal">∣</mi>
+                            <mi>x</mi>
+                            <mo stretchy="false">)</mo>
+                        </mrow>
+                        <annotation encoding="application/x-tex">p(z|x)</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span
+                        class="mopen">(</span><span class="mord mathdefault"
+                        style="margin-right:0.04398em;">z</span><span class="mord">∣</span><span
+                        class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> is
         intractable (it requires evaluating all possible values of <span class="katex"><span class="katex-mathml"><math
                     xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
@@ -274,7 +289,8 @@
                         style="margin-right:0.02778em;">θ</span></span></span></span>, which lends
         itself well for applying the <a href="https://arxiv.org/abs/1312.6114">reparametrisation
             trick</a> and also allows easy sampling of new
-        data points (fun!).</p>
+        data points (fun!).
+    </p>
     <p><strong>The process of finding the best approximation q(z|x) to p(z|x) is called Variational Inference!</strong>
     </p>
     <p>We measure the difference between <span class="katex"><span class="katex-mathml"><math
@@ -314,7 +330,87 @@
                         class="mord">∣</span><span class="mord mathdefault">x</span><span
                         class="mclose">)</span></span></span></span> using the <a
             href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL
-            divergence</a>.</p>
+            divergence</a>
+        and we are interested in finding the set of parameters <span class="katex"><span class="katex-mathml"><math
+                    xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>θ</mi>
+                        </mrow>
+                        <annotation encoding="application/x-tex">\theta</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.02778em;">θ</span></span></span></span> that minimise
+        it: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <msub>
+                                <mo>
+                                    <mi mathvariant="normal">argmin</mi>
+                                    <mo>⁡</mo>
+                                </mo>
+                                <mi>θ</mi>
+                            </msub>
+                            <mi>K</mi>
+                            <mi>L</mi>
+                            <mo stretchy="false">(</mo>
+                            <msub>
+                                <mi>q</mi>
+                                <mi>θ</mi>
+                            </msub>
+                            <mo stretchy="false">(</mo>
+                            <mi>Z</mi>
+                            <mi mathvariant="normal">∣</mi>
+                            <mi>X</mi>
+                            <mo stretchy="false">)</mo>
+                            <mi mathvariant="normal">∣</mi>
+                            <mi>p</mi>
+                            <mo stretchy="false">(</mo>
+                            <mi>Z</mi>
+                            <mi mathvariant="normal">∣</mi>
+                            <mi>X</mi>
+                            <mo stretchy="false">)</mo>
+                            <mo stretchy="false">)</mo>
+                        </mrow>
+                        <annotation encoding="application/x-tex">\operatorname{argmin}_\theta KL(q_\theta(Z|X)|p(Z|X))
+                        </annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop"><span
+                                class="mord mathrm">a</span><span class="mord mathrm">r</span><span class="mord mathrm"
+                                style="margin-right:0.01389em;">g</span><span class="mord mathrm">m</span><span
+                                class="mord mathrm">i</span><span class="mord mathrm">n</span></span><span
+                            class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
+                                        style="height:0.24196799999999993em;"><span
+                                            style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut"
+                                                style="height:2.7em;"></span><span
+                                                class="sizing reset-size6 size3 mtight"><span
+                                                    class="mord mathdefault mtight"
+                                                    style="margin-right:0.02778em;">θ</span></span></span></span><span
+                                        class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
+                                        style="height:0.24414em;"><span></span></span></span></span></span></span><span
+                        class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.07153em;">K</span><span class="mord mathdefault">L</span><span
+                        class="mopen">(</span><span class="mord"><span class="mord mathdefault"
+                            style="margin-right:0.03588em;">q</span><span class="msupsub"><span
+                                class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
+                                        style="height:0.33610799999999996em;"><span
+                                            style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span
+                                                class="pstrut" style="height:2.7em;"></span><span
+                                                class="sizing reset-size6 size3 mtight"><span
+                                                    class="mord mathdefault mtight"
+                                                    style="margin-right:0.02778em;">θ</span></span></span></span><span
+                                        class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
+                                        style="height:0.15em;"><span></span></span></span></span></span></span><span
+                        class="mopen">(</span><span class="mord mathdefault"
+                        style="margin-right:0.07153em;">Z</span><span class="mord">∣</span><span
+                        class="mord mathdefault" style="margin-right:0.07847em;">X</span><span
+                        class="mclose">)</span><span class="mord">∣</span><span class="mord mathdefault">p</span><span
+                        class="mopen">(</span><span class="mord mathdefault"
+                        style="margin-right:0.07153em;">Z</span><span class="mord">∣</span><span
+                        class="mord mathdefault" style="margin-right:0.07847em;">X</span><span
+                        class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
     <p>Rewriting the KL divergence we obtain:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
@@ -330,13 +426,6 @@
                                         <mstyle scriptlevel="0" displaystyle="true">
                                             <mrow>
                                                 <mrow></mrow>
-                                                <msub>
-                                                    <mo>
-                                                        <mi mathvariant="normal">argmin</mi>
-                                                        <mo>⁡</mo>
-                                                    </mo>
-                                                    <mi>θ</mi>
-                                                </msub>
                                                 <mi>K</mi>
                                                 <mi>L</mi>
                                                 <mo stretchy="false">(</mo>
@@ -590,7 +679,7 @@
                                 </mtr>
                             </mtable>
                             <annotation encoding="application/x-tex">\begin{aligned}
-                                &amp;\operatorname{argmin}_\theta KL(q_\theta(Z|X)|p(Z|X)) \\
+                                &amp; KL(q_\theta(Z|X)|p(Z|X)) \\
                                 &amp;= \int_Z q_\theta(Z|X) \log \frac{q_\theta(Z|X)}{p(Z|X)} \\
                                 &amp;= \int_Z q_\theta(Z|X) \log \frac{q_\theta(Z|X)p(X)}{p(Z,X)} \\
                                 &amp;= \int_Z q_\theta(Z|X) \left [ \log \frac{q_\theta(Z|X)}{p(Z,X)} + \log p(X) \right
@@ -623,31 +712,7 @@
                                                 class="vlist" style="height:6.344515em;"><span
                                                     style="top:-8.954515em;"><span class="pstrut"
                                                         style="height:3.45em;"></span><span class="mord"><span
-                                                            class="mord"></span><span class="mspace"
-                                                            style="margin-right:0.16666666666666666em;"></span><span
-                                                            class="mop"><span class="mop"><span
-                                                                    class="mord mathrm">a</span><span
-                                                                    class="mord mathrm">r</span><span
-                                                                    class="mord mathrm"
-                                                                    style="margin-right:0.01389em;">g</span><span
-                                                                    class="mord mathrm">m</span><span
-                                                                    class="mord mathrm">i</span><span
-                                                                    class="mord mathrm">n</span></span><span
-                                                                class="msupsub"><span class="vlist-t vlist-t2"><span
-                                                                        class="vlist-r"><span class="vlist"
-                                                                            style="height:0.24196799999999993em;"><span
-                                                                                style="top:-2.4558600000000004em;margin-right:0.05em;"><span
-                                                                                    class="pstrut"
-                                                                                    style="height:2.7em;"></span><span
-                                                                                    class="sizing reset-size6 size3 mtight"><span
-                                                                                        class="mord mathdefault mtight"
-                                                                                        style="margin-right:0.02778em;">θ</span></span></span></span><span
-                                                                            class="vlist-s">​</span></span><span
-                                                                        class="vlist-r"><span class="vlist"
-                                                                            style="height:0.24414em;"><span></span></span></span></span></span></span><span
-                                                            class="mspace"
-                                                            style="margin-right:0.16666666666666666em;"></span><span
-                                                            class="mord mathdefault"
+                                                            class="mord"></span><span class="mord mathdefault"
                                                             style="margin-right:0.07153em;">K</span><span
                                                             class="mord mathdefault">L</span><span
                                                             class="mopen">(</span><span class="mord"><span
@@ -1184,7 +1249,8 @@
                         style="margin-right:0.02778em;">θ</span></span></span></span>, so we can disregard it for this
         minimisation. We now take the integral, express it as an expectation and flip
         the sign (turning the argmin into and argmax) and obtain the evidence lower
-        bound (ELBO):</p>
+        bound (ELBO):
+    </p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -1264,6 +1330,13 @@
                                                 <mrow></mrow>
                                                 <mo>=</mo>
                                                 <msub>
+                                                    <mo>
+                                                        <mi mathvariant="normal">argmax</mi>
+                                                        <mo>⁡</mo>
+                                                    </mo>
+                                                    <mi>θ</mi>
+                                                </msub>
+                                                <msub>
                                                     <mi mathvariant="double-struck">E</mi>
                                                     <mrow>
                                                         <mi>z</mi>
@@ -1327,6 +1400,13 @@
                                                 <mrow></mrow>
                                                 <mo>=</mo>
                                                 <msub>
+                                                    <mo>
+                                                        <mi mathvariant="normal">argmax</mi>
+                                                        <mo>⁡</mo>
+                                                    </mo>
+                                                    <mi>θ</mi>
+                                                </msub>
+                                                <msub>
                                                     <mi mathvariant="double-struck">E</mi>
                                                     <mrow>
                                                         <mi>z</mi>
@@ -1382,9 +1462,10 @@
                             <annotation encoding="application/x-tex">\begin{aligned}
                                 &amp;\operatorname{argmax}_\theta \mathbb{E}_{z \sim q_\theta(Z|X)}[- \log
                                 \frac{q_\theta(Z|X)}{p(Z,X)}] \\
-                                &amp;= \mathbb{E}_{z \sim q_\theta(Z|X)}[- \log q_\theta(Z|X) - \log p(X|Z) +
-                                \log(p(Z))] \\
-                                &amp;= \mathbb{E}_{z \sim q_\theta(Z|X)}[\log p(X|Z)] - KL[q_\theta(Z|X) || (p(Z)]. \\
+                                &amp;= \operatorname{argmax}_\theta \mathbb{E}_{z \sim q_\theta(Z|X)}[- \log
+                                q_\theta(Z|X) - \log p(X|Z) + \log(p(Z))] \\
+                                &amp;= \operatorname{argmax}_\theta \mathbb{E}_{z \sim q_\theta(Z|X)}[\log p(X|Z)] -
+                                KL[q_\theta(Z|X) || (p(Z)]. \\
                                 \end{aligned}
                             </annotation>
                         </semantics>
@@ -1540,6 +1621,28 @@
                                                             style="margin-right:0.2777777777777778em;"></span><span
                                                             class="mrel">=</span><span class="mspace"
                                                             style="margin-right:0.2777777777777778em;"></span><span
+                                                            class="mop"><span class="mop"><span
+                                                                    class="mord mathrm">a</span><span
+                                                                    class="mord mathrm">r</span><span
+                                                                    class="mord mathrm"
+                                                                    style="margin-right:0.01389em;">g</span><span
+                                                                    class="mord mathrm">m</span><span
+                                                                    class="mord mathrm">a</span><span
+                                                                    class="mord mathrm">x</span></span><span
+                                                                class="msupsub"><span class="vlist-t vlist-t2"><span
+                                                                        class="vlist-r"><span class="vlist"
+                                                                            style="height:0.24196799999999993em;"><span
+                                                                                style="top:-2.4558600000000004em;margin-right:0.05em;"><span
+                                                                                    class="pstrut"
+                                                                                    style="height:2.7em;"></span><span
+                                                                                    class="sizing reset-size6 size3 mtight"><span
+                                                                                        class="mord mathdefault mtight"
+                                                                                        style="margin-right:0.02778em;">θ</span></span></span></span><span
+                                                                            class="vlist-s">​</span></span><span
+                                                                        class="vlist-r"><span class="vlist"
+                                                                            style="height:0.24414em;"><span></span></span></span></span></span></span><span
+                                                            class="mspace"
+                                                            style="margin-right:0.16666666666666666em;"></span><span
                                                             class="mord"><span class="mord"><span
                                                                     class="mord mathbb">E</span></span><span
                                                                 class="msupsub"><span class="vlist-t vlist-t2"><span
@@ -1637,6 +1740,28 @@
                                                             style="margin-right:0.2777777777777778em;"></span><span
                                                             class="mrel">=</span><span class="mspace"
                                                             style="margin-right:0.2777777777777778em;"></span><span
+                                                            class="mop"><span class="mop"><span
+                                                                    class="mord mathrm">a</span><span
+                                                                    class="mord mathrm">r</span><span
+                                                                    class="mord mathrm"
+                                                                    style="margin-right:0.01389em;">g</span><span
+                                                                    class="mord mathrm">m</span><span
+                                                                    class="mord mathrm">a</span><span
+                                                                    class="mord mathrm">x</span></span><span
+                                                                class="msupsub"><span class="vlist-t vlist-t2"><span
+                                                                        class="vlist-r"><span class="vlist"
+                                                                            style="height:0.24196799999999993em;"><span
+                                                                                style="top:-2.4558600000000004em;margin-right:0.05em;"><span
+                                                                                    class="pstrut"
+                                                                                    style="height:2.7em;"></span><span
+                                                                                    class="sizing reset-size6 size3 mtight"><span
+                                                                                        class="mord mathdefault mtight"
+                                                                                        style="margin-right:0.02778em;">θ</span></span></span></span><span
+                                                                            class="vlist-s">​</span></span><span
+                                                                        class="vlist-r"><span class="vlist"
+                                                                            style="height:0.24414em;"><span></span></span></span></span></span></span><span
+                                                            class="mspace"
+                                                            style="margin-right:0.16666666666666666em;"></span><span
                                                             class="mord"><span class="mord"><span
                                                                     class="mord mathbb">E</span></span><span
                                                                 class="msupsub"><span class="vlist-t vlist-t2"><span
@@ -1724,7 +1849,7 @@
                                                 class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
                                                 style="height:2.5815em;"><span></span></span></span></span></span></span></span></span></span></span></span>
     </p>
-    <p>The last equation is one we can work with! <span class="katex"><span class="katex-mathml"><math
+    <p>The last formula is one we can work with! <span class="katex"><span class="katex-mathml"><math
                     xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
@@ -1811,7 +1936,8 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.07153em;">Z</span></span></span></span>!</p>
+                        style="margin-right:0.07153em;">Z</span></span></span></span>!
+    </p>
     <h3 id="reparametrisation-trick">Reparametrisation trick</h3>
     <p>To evaluate the gradient of the expectation, we would like to use samples of
         <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1869,12 +1995,13 @@
                         class="mord">0</span><span class="mpunct">,</span><span class="mspace"
                         style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span
                         class="mclose">)</span></span></span></span> and transform its samples in a
-        deterministic way such that are samples from q:</p>
+        deterministic way such that are samples from q:
+    </p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
                             <mrow>
-                                <mi>z</mi>
+                                <mi>Z</mi>
                                 <mo>=</mo>
                                 <mi>g</mi>
                                 <mo stretchy="false">(</mo>
@@ -1894,16 +2021,16 @@
                                 <mo stretchy="false">(</mo>
                                 <mn>0</mn>
                                 <mo separator="true">,</mo>
-                                <mn>1</mn>
+                                <mi>I</mi>
                                 <mo stretchy="false">)</mo>
                             </mrow>
-                            <annotation encoding="application/x-tex">z = g(\epsilon) = \mu + \sigma \cdot \epsilon,
-                                \text{ and } \epsilon \sim N(0,1)
+                            <annotation encoding="application/x-tex">Z = g(\epsilon) = \mu + \sigma \cdot \epsilon,
+                                \text{ and } \epsilon \sim N(0,I)
                             </annotation>
                         </semantics>
                     </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                            style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault"
-                            style="margin-right:0.04398em;">z</span><span class="mspace"
+                            style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
+                            style="margin-right:0.07153em;">Z</span><span class="mspace"
                             style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span
                             class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span
                         class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span
@@ -1933,7 +2060,8 @@
                             class="mord mathdefault" style="margin-right:0.10903em;">N</span><span
                             class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span
                             class="mspace" style="margin-right:0.16666666666666666em;"></span><span
-                            class="mord">1</span><span class="mclose">)</span></span></span></span></span></p>
+                            class="mord mathdefault" style="margin-right:0.07847em;">I</span><span
+                            class="mclose">)</span></span></span></span></span></p>
     <p>With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
@@ -1984,22 +2112,18 @@
                         class="mopen">(</span><span class="mord mathdefault"
                         style="margin-right:0.04398em;">z</span><span class="mord">∣</span><span
                         class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>.
-        Modelling the variational parameters as a function of the observation <span class="katex"><span
-                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <semantics>
-                        <mrow>
-                            <mi>x</mi>
-                        </mrow>
-                        <annotation encoding="application/x-tex">x</annotation>
-                    </semantics>
-                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                        style="height:0.43056em;vertical-align:0em;"></span><span
-                        class="mord mathdefault">x</span></span></span></span> is also referred to as
-        &quot;amortised variational inference&quot;. The previous equation changes into:</p>
+        If we plug this into the previous equation, we obtain:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
                             <mrow>
+                                <msub>
+                                    <mo>
+                                        <mi mathvariant="normal">argmax</mi>
+                                        <mo>⁡</mo>
+                                    </mo>
+                                    <mi>θ</mi>
+                                </msub>
                                 <msub>
                                     <mi mathvariant="double-struck">E</mi>
                                     <mrow>
@@ -2054,15 +2178,29 @@
                                 <mo stretchy="false">]</mo>
                                 <mi mathvariant="normal">.</mi>
                             </mrow>
-                            <annotation encoding="application/x-tex">\mathbb{E}_{\epsilon \sim N(0,1)}[\log
-                                p_\phi(X|g(\epsilon))] -
+                            <annotation encoding="application/x-tex">\operatorname{argmax}_\theta \mathbb{E}_{\epsilon
+                                \sim N(0,1)}[\log p_\phi(X|g(\epsilon))] -
                                 KL[q_\theta(g(\epsilon)|X) || p(Z)].
                             </annotation>
                         </semantics>
                     </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                            style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span
-                            class="mord"><span class="mord"><span class="mord mathbb">E</span></span><span
-                                class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
+                            style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mop"><span
+                                class="mop"><span class="mord mathrm">a</span><span class="mord mathrm">r</span><span
+                                    class="mord mathrm" style="margin-right:0.01389em;">g</span><span
+                                    class="mord mathrm">m</span><span class="mord mathrm">a</span><span
+                                    class="mord mathrm">x</span></span><span class="msupsub"><span
+                                    class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
+                                            style="height:0.24196799999999993em;"><span
+                                                style="top:-2.4558600000000004em;margin-right:0.05em;"><span
+                                                    class="pstrut" style="height:2.7em;"></span><span
+                                                    class="sizing reset-size6 size3 mtight"><span
+                                                        class="mord mathdefault mtight"
+                                                        style="margin-right:0.02778em;">θ</span></span></span></span><span
+                                            class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
+                                            style="height:0.24414em;"><span></span></span></span></span></span></span><span
+                            class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span
+                                class="mord"><span class="mord mathbb">E</span></span><span class="msupsub"><span
+                                    class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
                                             style="height:0.34480000000000005em;"><span
                                                 style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut"
                                                     style="height:2.7em;"></span><span
@@ -2121,14 +2259,15 @@
                             class="mopen">(</span><span class="mord mathdefault"
                             style="margin-right:0.07153em;">Z</span><span class="mclose">)</span><span
                             class="mclose">]</span><span class="mord">.</span></span></span></span></span></p>
-    <p>This equation is fully differentiable, so we can optimise it using
-        backpropagation! We have derived the ELBO and a nice, easy, way to optimise it.
+    <p>This equation is fully differentiable, so we can optimise it using backpropagation!
+        A simple implementation of a model based on this equation can be found in the PyTorch example of the <a
+            href="https://github.com/pytorch/examples/tree/master/vae">VAE</a>.
         With this result in hand, we will go look at the situation in GPs.</p>
     <h2 id="gaussian-processes">Gaussian Processes</h2>
     <p>We start by looking at the definition of what is sometimes called the &quot;full&quot;
         Gaussian process and continue with the more practical sparse Gaussian process.</p>
     <h3 id="definition">Definition</h3>
-    <p>A Gaussian process is defined by a mean and covariance function, respectively
+    <p>A Gaussian process is defined by a prior mean and covariance function, respectively
         <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
@@ -2158,7 +2297,8 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.07847em;">X</span></span></span></span>:</p>
+                        style="margin-right:0.07847em;">X</span></span></span></span>:
+    </p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -2209,8 +2349,8 @@
                             style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
                             style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span
                             class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
-    <p>In this blog, we assume our GP has zero mean and replace <span class="katex"><span class="katex-mathml"><math
-                    xmlns="http://www.w3.org/1998/Math/MathML">
+    <p>In this blog, we assume our GP has zero prior mean and replace <span class="katex"><span
+                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>M</mi>
@@ -2234,11 +2374,11 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.64444em;vertical-align:0em;"></span><span
-                        class="mord">0</span></span></span></span>. This
-        is not a limitation of GPs, but it makes the notation easier. The covariance
-        function, also referred to as kernel, is where we can apply any knowledge we
-        have of the data we are modelling. A common choice is the squared exponential
-        kernel:</p>
+                        class="mord">0</span></span></span></span>.
+        This is not a limitation of GPs, but it makes the notation easier.
+        The covariance function, also referred to as kernel, is where we can apply any knowledge we have of the data we
+        are modelling.
+        A common choice is the squared exponential kernel:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -2254,7 +2394,7 @@
                                 <mo stretchy="false">)</mo>
                                 <mo>=</mo>
                                 <msup>
-                                    <mi>σ</mi>
+                                    <mi>θ</mi>
                                     <mn>2</mn>
                                 </msup>
                                 <mi>exp</mi>
@@ -2287,7 +2427,7 @@
                                     <mo fence="true">)</mo>
                                 </mrow>
                             </mrow>
-                            <annotation encoding="application/x-tex">k(x, x&#x27;) = \sigma^2\exp\left(-\frac{(x -
+                            <annotation encoding="application/x-tex">k(x, x&#x27;) = \theta^2\exp\left(-\frac{(x -
                                 x&#x27;)^2}{2\ell^2}\right)
                             </annotation>
                         </semantics>
@@ -2308,7 +2448,7 @@
                             class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span
                         class="base"><span class="strut"
                             style="height:2.441138em;vertical-align:-0.95003em;"></span><span class="mord"><span
-                                class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span
+                                class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span
                                 class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist"
                                             style="height:0.8641079999999999em;"><span
                                                 style="top:-3.113em;margin-right:0.05em;"><span class="pstrut"
@@ -2383,32 +2523,32 @@
                     <semantics>
                         <mrow>
                             <msup>
-                                <mi>σ</mi>
+                                <mi>θ</mi>
                                 <mn>2</mn>
                             </msup>
                         </mrow>
-                        <annotation encoding="application/x-tex">\sigma^2</annotation>
+                        <annotation encoding="application/x-tex">\theta^2</annotation>
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span
-                            class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span
+                            class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span
                                 class="vlist-t"><span class="vlist-r"><span class="vlist"
                                         style="height:0.8141079999999999em;"><span
                                             style="top:-3.063em;margin-right:0.05em;"><span class="pstrut"
                                                 style="height:2.7em;"></span><span
                                                 class="sizing reset-size6 size3 mtight"><span
                                                     class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>.
-        The length scale represents an assumption of the amount of variation
-        in your inputs, the higher the value the smoother the underlying function is
-        assumed to be. The output variance is a scale factor, if it is high then we
-        scale the squared difference down, if it is low then we scale it up. The core
-        assumption in the squared exponential kernel is that data points that are close
-        in input (&quot;similar&quot;), have high covariance (&quot;similar&quot; labels). There are many
-        other options, such as linear kernels, periodic kernels and combinations are
-        also possible. See David Duvenaud's excellent <a href="https://www.cs.toronto.edu/~duvenaud/cookbook/">kernel
-            cookbook</a> for more.</p>
-    <p>Further we assume that we can only observe noisy labels <span class="katex"><span class="katex-mathml"><math
-                    xmlns="http://www.w3.org/1998/Math/MathML">
+        The length scale represents an assumption of the amount of variation in your inputs, the higher the value the
+        smoother the underlying function is assumed to be (and the more we can confidently extrapolate).
+        The output variance is a scale factor and depends on the domain of the input.
+        The core assumption in the squared exponential kernel is that data points that are close in input
+        (&quot;similar&quot;), have high covariance (&quot;similar&quot; labels).
+        There are many other options, such as linear kernels, periodic kernels and combinations are also possible.
+        See David Duvenaud's excellent <a href="https://www.cs.toronto.edu/~duvenaud/cookbook/">kernel cookbook</a> for
+        more.
+    </p>
+    <p>In GPs, we further assume that we can only observe noisy labels <span class="katex"><span
+                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>Y</mi>
@@ -2417,8 +2557,18 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.22222em;">Y</span></span></span></span> of data, and define
+                        style="margin-right:0.22222em;">Y</span></span></span></span> (with noise
         <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>σ</mi>
+                        </mrow>
+                        <annotation encoding="application/x-tex">\sigma</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.03588em;">σ</span></span></span></span>) of data.
+        We define <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>F</mi>
@@ -2458,7 +2608,8 @@
                         class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
                         style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span
                         class="mord mathdefault" style="margin-right:0.07847em;">X</span><span
-                        class="mclose">)</span></span></span></span>:</p>
+                        class="mclose">)</span></span></span></span>:
+    </p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -2504,8 +2655,56 @@
                                                         class="mord mtight">2</span></span></span></span></span></span></span></span><span
                             class="mord mathdefault" style="margin-right:0.07847em;">I</span><span
                             class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
-    <p>And we are interested in finding the predictive distribution for new data point
-        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+    <p>We are interested in finding the predictive distribution <span class="katex"><span class="katex-mathml"><math
+                    xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>P</mi>
+                            <mo stretchy="false">(</mo>
+                            <msub>
+                                <mi>f</mi>
+                                <mo>∗</mo>
+                            </msub>
+                            <mi mathvariant="normal">∣</mi>
+                            <msub>
+                                <mi>x</mi>
+                                <mo>∗</mo>
+                            </msub>
+                            <mo separator="true">,</mo>
+                            <mi>X</mi>
+                            <mo separator="true">,</mo>
+                            <mi>Y</mi>
+                            <mo stretchy="false">)</mo>
+                        </mrow>
+                        <annotation encoding="application/x-tex">P(f_*|x_*, X, Y)</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span
+                            class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span
+                                class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
+                                        style="height:0.175696em;"><span
+                                            style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span
+                                                class="pstrut" style="height:2.7em;"></span><span
+                                                class="sizing reset-size6 size3 mtight"><span
+                                                    class="mbin mtight">∗</span></span></span></span><span
+                                        class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
+                                        style="height:0.15em;"><span></span></span></span></span></span></span><span
+                        class="mord">∣</span><span class="mord"><span class="mord mathdefault">x</span><span
+                            class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
+                                        style="height:0.175696em;"><span
+                                            style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span
+                                                class="pstrut" style="height:2.7em;"></span><span
+                                                class="sizing reset-size6 size3 mtight"><span
+                                                    class="mbin mtight">∗</span></span></span></span><span
+                                        class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
+                                        style="height:0.15em;"><span></span></span></span></span></span></span><span
+                        class="mpunct">,</span><span class="mspace"
+                        style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mspace"
+                        style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span> for
+        new data point <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <msub>
@@ -2525,59 +2724,8 @@
                                                     class="mbin mtight">∗</span></span></span></span><span
                                         class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
                                         style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,
-        because it will allow us to make prediction for unseen data:</p>
-    <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
-                        xmlns="http://www.w3.org/1998/Math/MathML">
-                        <semantics>
-                            <mrow>
-                                <mi>P</mi>
-                                <mo stretchy="false">(</mo>
-                                <msub>
-                                    <mi>f</mi>
-                                    <mo>∗</mo>
-                                </msub>
-                                <mi mathvariant="normal">∣</mi>
-                                <msub>
-                                    <mi>x</mi>
-                                    <mo>∗</mo>
-                                </msub>
-                                <mo separator="true">,</mo>
-                                <mi>X</mi>
-                                <mo separator="true">,</mo>
-                                <mi>Y</mi>
-                                <mo stretchy="false">)</mo>
-                                <mi mathvariant="normal">.</mi>
-                            </mrow>
-                            <annotation encoding="application/x-tex">P(f_*|x_*, X, Y).
-                            </annotation>
-                        </semantics>
-                    </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                            style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
-                            style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span
-                                class="mord mathdefault" style="margin-right:0.10764em;">f</span><span
-                                class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
-                                            style="height:0.175696em;"><span
-                                                style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span
-                                                    class="pstrut" style="height:2.7em;"></span><span
-                                                    class="sizing reset-size6 size3 mtight"><span
-                                                        class="mbin mtight">∗</span></span></span></span><span
-                                            class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
-                                            style="height:0.15em;"><span></span></span></span></span></span></span><span
-                            class="mord">∣</span><span class="mord"><span class="mord mathdefault">x</span><span
-                                class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist"
-                                            style="height:0.175696em;"><span
-                                                style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span
-                                                    class="pstrut" style="height:2.7em;"></span><span
-                                                    class="sizing reset-size6 size3 mtight"><span
-                                                        class="mbin mtight">∗</span></span></span></span><span
-                                            class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
-                                            style="height:0.15em;"><span></span></span></span></span></span></span><span
-                            class="mpunct">,</span><span class="mspace"
-                            style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
-                            style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mspace"
-                            style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
-                            style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span
-                            class="mord">.</span></span></span></span></span></p>
+        because it will allow us to make prediction for unseen
+        data.</p>
     <p>The joint distribution of the noisy labels and unseen data is:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
@@ -3248,64 +3396,18 @@
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span
                         class="mord">Σ</span></span></span></span> contains an inverse of the covariance matrix of the
-        data set. The complexity of that computation grows cubically, <span class="katex"><span
-                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <semantics>
-                        <mrow>
-                            <mi>O</mi>
-                            <mo stretchy="false">(</mo>
-                            <msup>
-                                <mi>n</mi>
-                                <mn>3</mn>
-                            </msup>
-                            <mo stretchy="false">)</mo>
-                        </mrow>
-                        <annotation encoding="application/x-tex">O(n^3)</annotation>
-                    </semantics>
-                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                        style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span
-                            class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span
-                                    class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span
-                                            style="top:-3.063em;margin-right:0.05em;"><span class="pstrut"
-                                                style="height:2.7em;"></span><span
-                                                class="sizing reset-size6 size3 mtight"><span
-                                                    class="mord mtight">3</span></span></span></span></span></span></span></span><span
-                        class="mclose">)</span></span></span></span>, with the
-        data set. This is infeasible to compute for many datasets. One way to go around
-        this limitation is to exploit the fact that there is often a lot of redundancy
-        in the training set. By using only the points that are most informative we can
-        drastically reduce computation. GPs that work on a reduced data set are called
-        &quot;Sparse Gaussian Processes&quot;.</p>
+        data set.
+        We can only stably invert covariance matrices up to a few thousand points.
+        After that it becomes very slow, even on modern GPUs, and can also fail due to numeric problems.
+        One way to go around this limitation is to exploit the fact that there is often a lot of redundancy in the
+        training set.
+        By using only the points that are most informative we can drastically reduce computation.
+        GPs that work on such a reduced data set are called &quot;Sparse Gaussian Processes&quot;.</p>
     <h3 id="sparse-gaussian-processes">Sparse Gaussian Processes</h3>
-    <p>The first Sparse GPs relied on smartly picking a subset of the training data,
-        this subset is also referred to as the &quot;inducing points&quot;, and computing the
-        inverse on those. This allows us to reduce the computation from depending on the
-        number of data points <span class="katex"><span class="katex-mathml"><math
-                    xmlns="http://www.w3.org/1998/Math/MathML">
-                    <semantics>
-                        <mrow>
-                            <mi>O</mi>
-                            <mo stretchy="false">(</mo>
-                            <msup>
-                                <mi>n</mi>
-                                <mn>3</mn>
-                            </msup>
-                            <mo stretchy="false">)</mo>
-                        </mrow>
-                        <annotation encoding="application/x-tex">O(n^3)</annotation>
-                    </semantics>
-                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                        style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span
-                            class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span
-                                    class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span
-                                            style="top:-3.063em;margin-right:0.05em;"><span class="pstrut"
-                                                style="height:2.7em;"></span><span
-                                                class="sizing reset-size6 size3 mtight"><span
-                                                    class="mord mtight">3</span></span></span></span></span></span></span></span><span
-                        class="mclose">)</span></span></span></span> to depending on the number of <span
-            class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+    <p>The first Sparse GPs relied on smartly picking a subset of the training data, this subset is also referred to as
+        the &quot;inducing points&quot;, and computing the inverse on those.
+        This allows us to reduce the computation from depending on the number of data points to depending on the number
+        of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>m</mi>
@@ -3314,45 +3416,20 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.43056em;vertical-align:0em;"></span><span
-                        class="mord mathdefault">m</span></span></span></span> induced points
-        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <semantics>
-                        <mrow>
-                            <mi>O</mi>
-                            <mo stretchy="false">(</mo>
-                            <msup>
-                                <mi>m</mi>
-                                <mn>3</mn>
-                            </msup>
-                            <mo stretchy="false">)</mo>
-                        </mrow>
-                        <annotation encoding="application/x-tex">O(m^3)</annotation>
-                    </semantics>
-                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                        style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span
-                            class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span
-                                    class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span
-                                            style="top:-3.063em;margin-right:0.05em;"><span class="pstrut"
-                                                style="height:2.7em;"></span><span
-                                                class="sizing reset-size6 size3 mtight"><span
-                                                    class="mord mtight">3</span></span></span></span></span></span></span></span><span
-                        class="mclose">)</span></span></span></span>. See <a
-            href="http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf">Quiñonero-Candela et
-            al.</a>
-        for a nice overview.</p>
-    <p>Later methods removed the reliance on selecting an actual subset of the data
-        points (<a href="http://mlg.eng.cam.ac.uk/zoubin/papers/nips05spgp.pdf">Snelson et al.</a>)
-        by introducing the concept of &quot;pseudo&quot; inducing points. It was
-        <a href="http://proceedings.mlr.press/v5/titsias09a/titsias09a.pdf">Titsias</a> who
-        introduced the first variational approximation to optimising sparse GPs, where
-        the pseudo inducing points are optimised as variational parameters. In contrast
-        to previous approaches, the &quot;Titsias approximation&quot; made optimising the pseudo
-        inducing points part of the objective, providing a unified and rigorous way to
+                        class="mord mathdefault">m</span></span></span></span> induced points.
+        See <a href="http://www.jmlr.org/papers/volume6/quinonero-candela05a/quinonero-candela05a.pdf">Quiñonero-Candela
+            et al.</a> for a nice overview.</p>
+    <p>Later methods removed the reliance on selecting an actual subset of the data points (<a
+            href="http://mlg.eng.cam.ac.uk/zoubin/papers/nips05spgp.pdf">Snelson et al.</a>) by introducing the concept
+        of &quot;pseudo&quot; inducing points.
+        It was <a href="http://proceedings.mlr.press/v5/titsias09a/titsias09a.pdf">Titsias</a> who introduced the first
+        variational approximation to optimising sparse GPs, where the pseudo inducing points are optimised as
+        variational parameters.
+        In contrast to previous approaches, the &quot;Titsias approximation&quot; made optimising the pseudo
+        inducing points part of the variational objective, providing a unified and rigorous way to
         optimise them.</p>
-    <p>The definition of sparse GPs is a bit different from full GPs. Below we follow the
-        derivation of <a href="http://www.auai.org/uai2013/prints/papers/244.pdf">Hensman et
-            al.</a>:</p>
+    <p>The definition of sparse GPs is a bit different from full GPs. Below we follow the derivation of <a
+            href="http://www.auai.org/uai2013/prints/papers/244.pdf">Hensman et al.</a>:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -3646,8 +3723,7 @@
                         style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
                         style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span
                         class="mord">⋅</span><span class="mclose">)</span></span></span></span> at the (pseudo-)
-        inducing
-        points <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+        inducing points <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>Z</mi>
@@ -3807,10 +3883,10 @@
                         class="mpunct">,</span><span class="mspace"
                         style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
                         style="margin-right:0.07153em;">Z</span><span class="mclose">)</span></span></span></span> now,
-        making it dependent on the
-        number of inducing points we pick and it no longer grows with the data set. The
-        difference between this approximation and the full GP is given by the following
-        KL divergence:</p>
+        making it dependent on the number of inducing points we pick.
+        It no longer grows with the data set.
+        The difference between this approximation and the full GP is given by the following KL divergence:
+    </p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -3880,7 +3956,60 @@
                                                 class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
                                                 style="height:0.5000000000000002em;"><span></span></span></span></span></span></span></span></span></span></span></span>
     </p>
-    <p>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+    <p>Note that we write <span class="katex"><span class="katex-mathml"><math
+                    xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>P</mi>
+                            <mo stretchy="false">(</mo>
+                            <mi>F</mi>
+                            <mi mathvariant="normal">∣</mi>
+                            <mi>U</mi>
+                            <mo separator="true">,</mo>
+                            <mi>Y</mi>
+                            <mo stretchy="false">)</mo>
+                        </mrow>
+                        <annotation encoding="application/x-tex">P(F|U,Y)</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span
+                        class="mord mathdefault" style="margin-right:0.13889em;">F</span><span
+                        class="mord">∣</span><span class="mord mathdefault"
+                        style="margin-right:0.10903em;">U</span><span class="mpunct">,</span><span class="mspace"
+                        style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span> and
+        not <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>P</mi>
+                            <mo stretchy="false">(</mo>
+                            <mi>F</mi>
+                            <mi mathvariant="normal">∣</mi>
+                            <mi>Y</mi>
+                            <mo stretchy="false">)</mo>
+                        </mrow>
+                        <annotation encoding="application/x-tex">P(F|Y)</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span
+                        class="mord mathdefault" style="margin-right:0.13889em;">F</span><span
+                        class="mord">∣</span><span class="mord mathdefault"
+                        style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span> as
+        second distribution, because <span class="katex"><span class="katex-mathml"><math
+                    xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>U</mi>
+                        </mrow>
+                        <annotation encoding="application/x-tex">U</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.10903em;">U</span></span></span></span> may not fully overlap with Y if we
+        use <strong>pseudo</strong> inducing points.
+        If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>U</mi>
@@ -3915,8 +4044,8 @@
                         style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span
                         class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span
                         class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.13889em;">F</span></span></span></span>, then
-        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                        style="margin-right:0.13889em;">F</span></span></span></span>, then <span class="katex"><span
+                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>K</mi>
@@ -3991,10 +4120,11 @@
                         class="mrel">=</span><span class="mspace"
                         style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut"
                         style="height:0.64444em;vertical-align:0em;"></span><span
-                        class="mord">0</span></span></span></span>. In that case the KL
-        divergence is zero, because both distributions are degenerate and we recover the
-        full GP. However we lost the computational gain, because the matrix inverse is
-        of the order of the original data set again.</p>
+                        class="mord">0</span></span></span></span>.
+        In that case the KL divergence is zero, because both distributions are degenerate and we recover the full GP.
+        However we lost the computational gain, because the matrix inverse is of the order of the original data set
+        again.
+    </p>
     <h2 id="finding-an-approximate-posterior">Finding an approximate posterior</h2>
     <p>We introduce an approximate posterior distribution <span class="katex"><span class="katex-mathml"><math
                     xmlns="http://www.w3.org/1998/Math/MathML">
@@ -4672,7 +4802,11 @@
                                                 class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
                                                 style="height:4.448975000000002em;"><span></span></span></span></span></span></span></span></span></span></span></span>
     </p>
-    <p>We end up with three terms: the marginal log-likelihood over <span class="katex"><span class="katex-mathml"><math
+    <p>The first to the second step is done using Bayes' rule.
+        The second to the third step is writing out the fraction inside the log into separate components.
+        The last step rewrites the integral into familiar components (KL divergence, likelihood and marginal
+        likelihood).
+        The marginal log-likelihood is over <span class="katex"><span class="katex-mathml"><math
                     xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
@@ -4692,10 +4826,8 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.07847em;">X</span></span></span></span>
-        in the VAE, the likelihood, and the KL divergence between our approximate
-        posterior and the prior. To evaluate the likelihood, we note that given the
-        inducing points, the function values factorise:</p>
+                        style="margin-right:0.07847em;">X</span></span></span></span> as we saw in the VAE.
+        To evaluate the likelihood, we use the fact that given the inducing points, the function values factorise:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -4829,10 +4961,10 @@
                         class="mord">∣</span><span class="mord mathdefault"
                         style="margin-right:0.10903em;">U</span><span class="mclose">)</span></span></span></span> is
         itself a Gaussian Process, with a mean and
-        variance function that depend on the inducing variables. Following this
-        <a href="https://www.prowler.io/blog/sparse-gps-approximate-the-posterior-not-the-model">blog</a>
-        by James Hensman, we pick a particular mean and variance function for q, such
-        that the ELBO is computable:</p>
+        variance function that depend on the inducing variables.
+        Following this <a href="https://www.prowler.io/blog/sparse-gps-approximate-the-posterior-not-the-model">blog</a>
+        by James Hensman, we pick a particular mean and variance function for q (which we are free to do!), such that
+        the ELBO is computable:</p>
     <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math
                         xmlns="http://www.w3.org/1998/Math/MathML">
                         <semantics>
@@ -5221,7 +5353,31 @@
                                                 class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist"
                                                 style="height:1.274108em;"><span></span></span></span></span></span></span></span></span></span></span></span>
     </p>
-    <p>With <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+    <p>This step might seem abstract, but it's common in variational inference to pick <span class="katex"><span
+                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>q</mi>
+                        </mrow>
+                        <annotation encoding="application/x-tex">q</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.03588em;">q</span></span></span></span> such that the ELBO becomes
+        tractable.
+        The more flexible <span class="katex"><span class="katex-mathml"><math
+                    xmlns="http://www.w3.org/1998/Math/MathML">
+                    <semantics>
+                        <mrow>
+                            <mi>q</mi>
+                        </mrow>
+                        <annotation encoding="application/x-tex">q</annotation>
+                    </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
+                        style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault"
+                        style="margin-right:0.03588em;">q</span></span></span></span> we allow, the better it can
+        approximate the true posterior.
+        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>m</mi>
@@ -5250,10 +5406,10 @@
                     </semantics>
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.07153em;">Z</span></span></span></span>, all variational parameters that
-        can be optimised
-        through gradient descent. Interestingly, this means that the inducing points
-        themselves, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                        style="margin-right:0.07153em;">Z</span></span></span></span> are all variational parameters
+        that can be optimised through gradient descent.
+        Interestingly, this means that the inducing points themselves, <span class="katex"><span
+                class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
                     <semantics>
                         <mrow>
                             <mi>Z</mi>
@@ -5263,43 +5419,28 @@
                 </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
                         style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault"
                         style="margin-right:0.07153em;">Z</span></span></span></span>, have become part of the
-        objective. Making predictions using
-        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <semantics>
-                        <mrow>
-                            <mi>q</mi>
-                            <mo stretchy="false">(</mo>
-                            <mi>F</mi>
-                            <mi mathvariant="normal">∣</mi>
-                            <mi>U</mi>
-                            <mo stretchy="false">)</mo>
-                        </mrow>
-                        <annotation encoding="application/x-tex">q(F|U)</annotation>
-                    </semantics>
-                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut"
-                        style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault"
-                        style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span
-                        class="mord mathdefault" style="margin-right:0.13889em;">F</span><span
-                        class="mord">∣</span><span class="mord mathdefault"
-                        style="margin-right:0.10903em;">U</span><span class="mclose">)</span></span></span></span> now
-        depends explicitly on the set of inducing points, which is very
-        different from deep neural networks where we only update the parameters of the
-        network itself. For a detailed derivation, see also <a href="https://arxiv.org/abs/1402.1412">this
-            tutorial</a> by Yarin Gal and Mark van der Wilk.</p>
+        objective.
+        This is different way of thinking than in the VAE, where we only care about updating the parameters of the deep
+        network.
+        For a detailed derivation, see also <a href="https://arxiv.org/abs/1402.1412">this tutorial</a> by Yarin Gal and
+        Mark van der Wilk.
+    </p>
     <h2 id="conclusion">Conclusion</h2>
-    <p>In this blog I have shown that performing variational inference in VAEs and GPs
-        is very similar. In both cases we start out with an intractable
-        equation and introduce a new distribution to create a tractable approximation.
-        We try to find the best approximation to the original problem (or alternatively
-        minimise the KL divergence!).</p>
-    <p>If you found this interesting and are curious to find out more about GPs, then
-        there is a considerable amount of literature available. I can recommend the
-        <a href="http://proceedings.mlr.press/v31/damianou13a.pdf">deep GP</a> paper and
-        <a href="http://papers.nips.cc/paper/7045-doubly-stochastic-variational-inference-for-deep-gaussian-processes">variational
-            extensions</a>
-        of it. There are many interesting opportunities of combining the scalability of
-        deep learning with the mathematical foundations of GPs and no doubt a lot more
-        research will be done towards that goal!</p>
+    <p>In this blog I have shown that performing variational inference in VAEs and GPs is very similar.
+        In both cases we start out with an intractable equation and introduce a new distribution to create a tractable
+        approximation.
+        We try to find the best approximation to the original problem (or alternatively minimise the KL divergence!).
+    </p>
+    <p>If you found this interesting and are curious to find out more about GPs, then there is a considerable amount of
+        literature available.
+        I can recommend the <a href="http://proceedings.mlr.press/v31/damianou13a.pdf">deep GP</a> paper and <a
+            href="http://papers.nips.cc/paper/7045-doubly-stochastic-variational-inference-for-deep-gaussian-processes">variational
+            extensions</a> of it.</p>
+    <p>Lastly I would like to bring your attention to my own work, which combines the benefits of GPs with the
+        flexibility of deep learning: <a href="https://openreview.net/pdf?id=8W7LTo_zxdE">vDUQ</a>.
+        vDUQ is an instance of Deep Kernel Learning and uses the inducing point approximation we discussed above!
+        Interestingly, the inducing points are placed in the <em>feature space</em> of a deep neural network, allowing
+        only a handful of inducing points to be used for complicated datasets such as CIFAR-10.</p>
 
 </body>
 
