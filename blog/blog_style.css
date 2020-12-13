@@ -1,5 +1,6 @@
 html {
     padding: 16px;
+    overflow-x: hidden;
 }
 
 .katex {
@@ -10,4 +11,6 @@ body {
     max-width: 600px;
     margin: auto;
     padding: 0px;
+    position: relative;
+    overflow-x: hidden;
 }
