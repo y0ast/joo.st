@@ -1,16 +1,5 @@
-html {
-    padding: 16px;
-    overflow-x: hidden;
-}
-
-.katex {
-    font-size: 1.1em;
-}
-
 body {
     max-width: 600px;
     margin: auto;
     padding: 0px;
-    position: relative;
-    overflow-x: hidden;
 }
