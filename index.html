@@ -18,15 +18,27 @@
   <meta property="twitter:card" content="summary_large_image" />
 
   <!-- Bootstrap/Font Awesome CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
-    integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
   <title>Joost van Amersfoort</title>
 
   <style>
+    a:link {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     a[aria-expanded=true] .fa-chevron-down {
       display: none;
     }
@@ -34,17 +46,24 @@
     a[aria-expanded=false] .fa-chevron-up {
       display: none;
     }
+
+    @media (min-width: 992px) {
+      .container {
+        max-width: 960px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-light bg-light navbar-expand-sm">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container">
-      <span class="navbar-brand mb-0 h1">Joost</span>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+      <span class="navbar-brand">Joost</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapsed"
+        aria-controls="navbarCollapsed" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse" id="navbarCollapsed">
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="#home">Home</a>
           <a class="nav-item nav-link active" href="#publications">Publications</a>
@@ -86,7 +105,8 @@
 
         <ul class="list-inline">
           <li class="list-inline-item">
-            <a data-toggle="collapse" href="#email" title="Click to expand" role="button" aria-expanded="false">
+            <a title="Click to expand" data-bs-toggle="collapse" href="#email" role="button" aria-expanded="false"
+              aria-controls="bibtex_DUE">
               <i class="fas fa-envelope"></i> Email <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
             </a>
           </li>
@@ -101,9 +121,6 @@
             <div class="input-group-prepend">
               <span class="input-group-text">joost.van.amersfoort@cs.ox.ac.uk</span>
             </div>
-            <button type="button" class="btn btn-secondary js-copy" data-toggle="tooltip" data-placement="bottom"
-              data-copy="joost.van.amersfoort@cs.ox.ac.uk" title="Copy to clipboard"><i
-                class="far fa-copy"></i></button>
           </div>
         </div>
       </div>
@@ -111,25 +128,82 @@
 
     <div class="row mt-4">
       <div class="col">
-        <h2 id="publications">Publications</h2>
-        <p>Recent publications/preprints, for a full overview see my <a
-            href="https://scholar.google.com/citations?user=C0LaV8IAAAAJ">Google Scholar page</a>.</p>
+        <h2 id="publications">Publications and Preprints</h2>
+        <p>For a full overview see my <a href="https://scholar.google.com/citations?user=C0LaV8IAAAAJ">Google Scholar
+            page</a>.</p>
         <ul>
           <li>
-            <b><a href="https://arxiv.org/abs/2003.02037">Uncertainty Estimation Using a Single Deep Deterministic Neural Network</a></b><br>
-            Joost van Amersfoort, <a href="http://www.robots.ox.ac.uk/~lsgs/">Lewis Smith</a>, <a
-              href="https://www.stats.ox.ac.uk/~teh/">Yee Whye Teh</a>, <a
-              href="http://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin Gal</a><br>
-            <b>ICML 2020</b> - 
+            <b><a href="https://arxiv.org/abs/2102.11409">On Feature Collapse and Deep Kernel Learning for Single
+                Forward Pass Uncertainty</a></b><br>
+            Joost van Amersfoort,
+            <a href="http://www.robots.ox.ac.uk/~lsgs/">Lewis Smith</a>,
+            <a href="https://oatml.cs.ox.ac.uk/members/andrew_jesson/">Andrew Jesson</a>,
+            <a href="https://oscarkey.github.io/">Oscar Key</a>,
+            <a href="http://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin Gal</a><br>
+            <b>ArXiv</b> -
+            <a href="https://github.com/y0ast/DUE">Code</a>,
+            <a title="Click to expand" data-bs-toggle="collapse" href="#bibtex_DUE" role="button" aria-expanded="false"
+              aria-controls="bibtex_DUE">
+              BibTex <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
+            </a>
+            <div class="collapse" id="bibtex_DUE">
+              <div class="card card-body mb-0">
+                <pre class="mb-0">
+@article{van2021on,
+  title={On Feature Collapse and Deep Kernel Learning for Single Forward Pass Uncertainty},
+  author={van Amersfoort, Joost and Smith, Lewis and Jesson, Andrew and Key, Oscar and Gal, Yarin},
+  journal={arXiv preprint arXiv:2102.11409},
+  year={2021}
+}
+</pre>
+              </div>
+            </div>
+          </li>
+          <li>
+            <b><a href="https://arxiv.org/abs/2102.11582">Deterministic Neural Networks with Inductive Biases Capture
+                Epistemic and Aleatoric Uncertainty</a></b><br>
+            <a href="https://omegafragger.github.io/">Jishnu Mukhoti*</a>,
+            <a href="https://www.blackhc.net/">Andreas Kirsch*</a>,
+            Joost van Amersfoort,
+            <a href="https://www.robots.ox.ac.uk/~phst/">Philip Torr</a>,
+            <a href="https://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin Gal</a><br>
+            <b>ArXiv</b> -
+            <a href="https://github.com/omegafragger/DDU">Code</a>,
+
+            <a title="Click to expand" data-bs-toggle="collapse" href="#bibtex_DDU" role="button" aria-expanded="false"
+              aria-controls="bibtex_DDU">
+              BibTex <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
+            </a>
+            <div class="collapse" id="bibtex_DDU">
+              <div class="card card-body mb-0">
+                <pre class="mb-0">
+@article{mukhoti2021deterministic,
+  title={Deterministic Neural Networks with Appropriate Inductive Biases Capture Epistemic and Aleatoric Uncertainty},
+  author={Mukhoti, Jishnu and Kirsch, Andreas and van Amersfoort, Joost and Torr, Philip HS and Gal, Yarin},
+  journal={arXiv preprint arXiv:2102.11582},
+  year={2021}
+}
+</pre>
+              </div>
+            </div>
+          </li>
+          <li>
+            <b><a href="https://arxiv.org/abs/2003.02037">Uncertainty Estimation Using a Single Deep Deterministic
+                Neural Network</a></b><br>
+            Joost van Amersfoort,
+            <a href="https://www.robots.ox.ac.uk/~lsgs/">Lewis Smith</a>,
+            <a href="https://www.stats.ox.ac.uk/~teh/">Yee Whye Teh</a>,
+            <a href="https://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin Gal</a><br>
+            <b>ICML 2020</b> -
             <a href="https://icml.cc/virtual/2020/poster/6512">Video</a>,
             <a href="https://github.com/y0ast/deterministic-uncertainty-quantification">Code</a>,
-            <a data-toggle="collapse" href="#bibtex_DUQ" title="Click to
-            expand" role="button" aria-expanded="false">
+            <a title="Click to expand" data-bs-toggle="collapse" href="#bibtex_DUQ" role="button" aria-expanded="false"
+              aria-controls="bibtex_DUQ">
               BibTex <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
             </a>
             <div class="collapse" id="bibtex_DUQ">
               <div class="card card-body mb-0">
-                <pre style="margin-bottom: 0;">
+                <pre class="mb-0">
 @inproceedings{van2020uncertainty,
   title={Uncertainty Estimation Using a Single Deep Deterministic Neural Network},
   author={van Amersfoort, Joost and Smith, Lewis and Teh, Yee Whye and Gal, Yarin},
@@ -142,21 +216,21 @@
           <li>
             <b><a href="https://arxiv.org/abs/1906.08158">BatchBALD: Efficient and Diverse Batch Acquisition for Deep
                 Bayesian Active Learning</a></b><br>
-            <a href="https://www.blackhc.net/">Andreas Kirsch*</a>, Joost van
-            Amersfoort*, <a href="http://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin
-              Gal</a><br>
-            <b>NeurIPS 2019</b> - 
+            <a href="https://www.blackhc.net/">Andreas Kirsch*</a>,
+            Joost van Amersfoort*,
+            <a href="https://www.cs.ox.ac.uk/people/yarin.gal/website/">Yarin Gal</a><br>
+            <b>NeurIPS 2019</b> -
             <a href="https://oatml.cs.ox.ac.uk/blog/2019/06/24/batchbald.html">Blog</a>,
             <a href="https://files.joo.st/batchbald_poster_neurips.pdf">Poster</a>,
             <a href="https://github.com/BlackHC/BatchBALD">Code</a>,
             <a href="https://blackhc.github.io/batchbald_redux/">Tutorial</a>,
-            <a data-toggle="collapse" href="#bibtex_batchbald" title="Click to
-            expand" role="button" aria-expanded="false">
+            <a title="Click to expand" data-bs-toggle="collapse" href="#bibtex_batchbald" role="button"
+              aria-expanded="false" aria-controls="bibtex_batchbald">
               BibTex <i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i>
             </a>
             <div class="collapse" id="bibtex_batchbald">
               <div class="card card-body mb-0">
-                <pre style="margin-bottom: 0;">
+                <pre class="mb-0">
 @inproceedings{kirsch2019batchbald,
   title={BatchBALD: Efficient and Diverse Batch Acquisition for Deep Bayesian Active Learning},
   author={Kirsch, Andreas and van Amersfoort, Joost and Gal, Yarin},
@@ -200,7 +274,7 @@
         </p>
         <ul>
           <li>
-            <b><a href="https://gist.github.com/y0ast/f69966e308e549f013a92dc66debeeb4">FastMNIST</a></b>:
+            <b><a href="https://github.com/y0ast/pytorch-snippets/tree/main/fast_mnist">FastMNIST</a></b>:
             The default PyTorch MNIST dataset implementation is slow when used on a modern GPU. This replacement
             speeds up training by 2-3x.
           </li>
@@ -211,7 +285,7 @@
             and includes a pretrained model, evaluation notebooks and training code.
           </li>
           <li>
-            <b><a href="https://gist.github.com/y0ast/d91d09565462125a1eb75acc65da1469">CIFAR-10 baseline
+            <b><a href="https://github.com/y0ast/pytorch-snippets/tree/main/minimal_cifar">CIFAR-10 baseline
                 script</a></b>:
             A self-contained, 150 line script that trains a ResNet-18 to ~94% accuracy on CIFAR-10 using PyTorch. Useful
             for obtaining a strong baseline with minimal tricks.
@@ -220,55 +294,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Bootstrap JS (includes jQuery and Popper)-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-
-  <script>
-    function copyToClipboard(element) {
-      const copyText = element.attr('data-copy');
-      const textArea = document.createElement('textarea');
-      textArea.textContent = copyText;
-      document.body.append(textArea);
-      textArea.select();
-      document.execCommand("copy");
-      textArea.remove()
-
-      element.attr('data-original-title', 'Copied!').tooltip('show');
-
-      element.mouseleave(function () {
-        element.attr('data-original-title', 'Copy to clipboard');
-      });
-    }
-
-    $(document).ready(function () {
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
-
-      $('.js-copy').click(function () {
-        copyToClipboard($(this));
-      });
-
-      $('pre').dblclick(function () {
-        var text = this.firstChild;
-
-        selection = window.getSelection();
-        range = document.createRange();
-        range.selectNodeContents(text);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      });
-    });
-  </script>
 </body>
 
 </html>
